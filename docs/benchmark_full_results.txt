@@ -1,0 +1,40 @@
+goos: linux
+goarch: amd64
+pkg: github.com/l0neman/go-pretty-log
+cpu: 13th Gen Intel(R) Core(TM) i5-13500H
+BenchmarkLoggerInfo-16                    	 2459768	      1452 ns/op	     936 B/op	      21 allocs/op
+BenchmarkLoggerInfof-16                   	 2279311	      1495 ns/op	     944 B/op	      21 allocs/op
+BenchmarkLoggerDebug-16                   	 2466111	      1476 ns/op	     936 B/op	      21 allocs/op
+BenchmarkLoggerWarn-16                    	 2405649	      1498 ns/op	     936 B/op	      21 allocs/op
+BenchmarkLoggerError-16                   	 2333061	      1496 ns/op	     936 B/op	      21 allocs/op
+BenchmarkGlobalLoggerInfo-16              	 2342013	      1531 ns/op	     944 B/op	      21 allocs/op
+BenchmarkLoggerWithColorEnabled-16        	 3747370	       958.1 ns/op	     544 B/op	      15 allocs/op
+BenchmarkLoggerWithColorDisabled-16       	 4686566	       787.6 ns/op	     416 B/op	      13 allocs/op
+BenchmarkLoggerWithStackEnabled-16        	 2719600	      1341 ns/op	     816 B/op	      19 allocs/op
+BenchmarkLoggerWithStackDisabled-16       	 4549924	       781.5 ns/op	     416 B/op	      13 allocs/op
+BenchmarkLoggerWithAllFlagsEnabled-16     	 2389689	      1530 ns/op	     944 B/op	      21 allocs/op
+BenchmarkLoggerFiltered-16                	50040745	        71.44 ns/op	      64 B/op	       2 allocs/op
+BenchmarkLoggerNotFiltered-16             	 2376076	      1555 ns/op	     944 B/op	      21 allocs/op
+BenchmarkLoggerMultipleArgs-16            	 2138906	      1742 ns/op	     944 B/op	      21 allocs/op
+BenchmarkLoggerComplexFormatting-16       	 1998403	      1818 ns/op	    1136 B/op	      21 allocs/op
+BenchmarkLoggerParallel-16                	 4258094	       819.6 ns/op	     946 B/op	      21 allocs/op
+BenchmarkLoggerParallelWithAllFlags-16    	 4133145	       847.0 ns/op	     946 B/op	      21 allocs/op
+BenchmarkDifferentLevels/Info-16          	 2304458	      1632 ns/op	     944 B/op	      21 allocs/op
+BenchmarkDifferentLevels/Debug-16         	 2270527	      1587 ns/op	     944 B/op	      21 allocs/op
+BenchmarkDifferentLevels/Warn-16          	 2282463	      1599 ns/op	     944 B/op	      21 allocs/op
+BenchmarkDifferentLevels/Error-16         	 2245201	      1568 ns/op	     944 B/op	      21 allocs/op
+BenchmarkFormattingComparison/NonFormatted-16         	 2251460	      1581 ns/op	     944 B/op	      21 allocs/op
+BenchmarkFormattingComparison/Formatted-16            	 2386255	      1520 ns/op	     896 B/op	      20 allocs/op
+BenchmarkFormattingComparison/FormattedComplex-16     	 2216305	      1597 ns/op	    1040 B/op	      22 allocs/op
+BenchmarkFlagCombinations/NoFlags-16                  	 4469416	       798.1 ns/op	     416 B/op	      13 allocs/op
+BenchmarkFlagCombinations/ColorOnly-16                	 3605246	       997.7 ns/op	     544 B/op	      15 allocs/op
+BenchmarkFlagCombinations/StackOnly-16                	 2467096	      1394 ns/op	     824 B/op	      20 allocs/op
+BenchmarkFlagCombinations/ColorAndStack-16            	 2256000	      1600 ns/op	     952 B/op	      22 allocs/op
+BenchmarkPrinterImpl-16                               	 7065414	       512.0 ns/op	     320 B/op	      10 allocs/op
+BenchmarkPrinterImplWithColor-16                      	 5133247	       694.1 ns/op	     448 B/op	      12 allocs/op
+BenchmarkPrinterImplWithStack-16                      	 6167920	       562.4 ns/op	     392 B/op	      12 allocs/op
+BenchmarkGetStackInfo-16                              	 7720207	       460.4 ns/op	     296 B/op	       5 allocs/op
+BenchmarkNewLogger-16                                 	51635718	        65.74 ns/op	       0 B/op	       0 allocs/op
+BenchmarkRealWorldScenario-16                         	  724226	      5108 ns/op	    2327 B/op	      63 allocs/op
+PASS
+ok  	github.com/l0neman/go-pretty-log	161.924s
