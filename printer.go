@@ -24,12 +24,12 @@ const (
 )
 
 var (
-	colorInfo  = []int{3, 169, 244} // 蓝色
-	colorDebug = []int{76, 175, 80} // 绿色
-	colorWarn  = []int{255, 152, 0} // 橙色
-	colorError = []int{244, 67, 54} // 红色
-	colorFatal = []int{121, 85, 72} // 褐色
-	colorPanic = []int{121, 85, 72} // 褐色
+	colorInfo  = []int{3, 169, 244} // blue
+	colorDebug = []int{76, 175, 80} // green
+	colorWarn  = []int{255, 152, 0} // orange
+	colorError = []int{244, 67, 54} // red
+	colorFatal = []int{121, 85, 72} // brown
+	colorPanic = []int{121, 85, 72} // brown
 
 	goLog = log.New(os.Stdout, "", 0)
 )

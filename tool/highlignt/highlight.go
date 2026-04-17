@@ -23,13 +23,13 @@ func getHighlightLine(content string, width int) string {
 	return line
 }
 
-// GetLine 获取高亮突出显示的一行
+// GetLine returns a highlighted single line
 func GetLine(text string, width int) string {
 	content := "┃ " + text
 	return getHighlightLine(content, width)
 }
 
-// GetLines 获取高亮突出显示的若干行
+// GetLines returns highlighted multiple lines
 func GetLines(texts []string, width int) string {
 	content := ""
 	for _, text := range texts {

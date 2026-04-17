@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	baseStackOffset = 4 // 栈偏移
+	baseStackOffset = 4 // stack offset
 )
 
 type loggerImpl struct {

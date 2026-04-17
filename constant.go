@@ -1,14 +1,14 @@
 package pretty_log
 
 type (
-	Flag  int // 日志标记
-	Level int // 日志级别
+	Flag  int // log flag
+	Level int // log level
 )
 
 const (
 	FlagClear        Flag = 0x00
-	FlagColorEnabled Flag = 0x01 // 启用颜色
-	FlagStackEnabled Flag = 0x02 // 启用栈信息
+	FlagColorEnabled Flag = 0x01 // enable color
+	FlagStackEnabled Flag = 0x02 // enable stack info
 
 	LevelInfo  Level = 0x01
 	LevelDebug Level = 0x02

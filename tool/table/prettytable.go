@@ -5,12 +5,12 @@ import (
 	"strings"
 )
 
-// GetHorizontalPrettyTable 获得横向美观的表格
+// GetHorizontalPrettyTable returns a horizontal pretty table
 func GetHorizontalPrettyTable(content [][]any) string {
 	return GetHorizontalPrettyTableWithName(content, "")
 }
 
-// GetVerticalPrettyTable 获得纵向美观的表格
+// GetVerticalPrettyTable returns a vertical pretty table
 func GetVerticalPrettyTable(content [][]any) string {
 	return GetVerticalPrettyTableWithName(content, "")
 }
@@ -23,7 +23,7 @@ func GetVerticalPrettyTableWithName(content [][]any, tableName string) string {
 	return getPrettyTableWithOption(content, tableName, GravityVertical)
 }
 
-// GetPrettyTableWithOption 获得美观的表格
+// GetPrettyTableWithOption returns a pretty table with options
 func getPrettyTableWithOption(content [][]any, tableName string, gravity Gravity) string {
 	if len(content) <= 1 {
 		return ""
@@ -257,14 +257,14 @@ func (pti *prettyTableImpl) getPrettyTableHorizontal(tableName string, nameWidth
 	return pretty.String()
 }
 
-// GetHorizontal 获得横向表格内容
+// GetHorizontal returns horizontal table content
 func (pti *prettyTableImpl) GetHorizontal() string {
 	return pti.getPrettyTableHorizontal(pti.tableName, pti.nameWidths, pti.titles, pti.content)
 }
 
 func (pti *prettyTableImpl) updateNameWidthsVertical(arr []any) {
 	if len(pti.nameWidths) == 0 {
-		// 固定 2 个
+		// Fixed 2
 		pti.nameWidths = append(pti.nameWidths, 0, 0)
 	}
 

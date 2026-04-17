@@ -1,6 +1,6 @@
 # Pretty Log
 
-[中文说明](./README.md) | English
+[中文](./README.md) | English
 
 A simple and elegant logging library.
 

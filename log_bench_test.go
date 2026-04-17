@@ -7,14 +7,14 @@ import (
 	"time"
 )
 
-// mockPrinter 用于基准测试的 mock 输出器，丢弃所有输出
+// mockPrinter A mock outputter for benchmarking that discards all output
 type mockPrinter struct{}
 
 func (m *mockPrinter) Print(time time.Time, level Level, logTag, logText string, pid int, colorful bool, stackInfo string) {
-	// 不做任何输出，模拟最快的打印器
+	// Do not make any output, simulate the fastest printer
 }
 
-// discardPrinter 使用 io.Discard 的打印器
+// discardPrinter is a printer that uses io.Discard
 type discardPrinter struct {
 	PrinterImpl
 }
@@ -39,14 +39,14 @@ const (
 	benchMessage = "This is a benchmark test message"
 )
 
-// setupLogger 创建一个用于基准测试的 logger
+// setupLogger creates a logger for benchmark testing
 func setupLogger() Logger {
 	logger := NewLogger()
 	logger.SetPrinter(newDiscardPrinter())
 	return logger
 }
 
-// BenchmarkLoggerInfo 测试 Info 级别日志性能
+// BenchmarkLoggerInfo tests Info level log performance
 func BenchmarkLoggerInfo(b *testing.B) {
 	logger := setupLogger()
 	b.ResetTimer()
@@ -55,7 +55,7 @@ func BenchmarkLoggerInfo(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerInfof 测试格式化 Info 日志性能
+// BenchmarkLoggerInfof tests formatted Info log performance
 func BenchmarkLoggerInfof(b *testing.B) {
 	logger := setupLogger()
 	b.ResetTimer()
@@ -64,7 +64,7 @@ func BenchmarkLoggerInfof(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerDebug 测试 Debug 级别日志性能
+// BenchmarkLoggerDebug tests Debug level log performance
 func BenchmarkLoggerDebug(b *testing.B) {
 	logger := setupLogger()
 	b.ResetTimer()
@@ -73,7 +73,7 @@ func BenchmarkLoggerDebug(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerWarn 测试 Warn 级别日志性能
+// BenchmarkLoggerWarn tests Warn level log performance
 func BenchmarkLoggerWarn(b *testing.B) {
 	logger := setupLogger()
 	b.ResetTimer()
@@ -82,7 +82,7 @@ func BenchmarkLoggerWarn(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerError 测试 Error 级别日志性能
+// BenchmarkLoggerError tests Error level log performance
 func BenchmarkLoggerError(b *testing.B) {
 	logger := setupLogger()
 	b.ResetTimer()
@@ -91,7 +91,7 @@ func BenchmarkLoggerError(b *testing.B) {
 	}
 }
 
-// BenchmarkGlobalLoggerInfo 测试全局 logger 的性能
+// BenchmarkGlobalLoggerInfo tests global logger performance
 func BenchmarkGlobalLoggerInfo(b *testing.B) {
 	oldStdout := os.Stdout
 	os.Stdout, _ = os.Open(os.DevNull)
@@ -104,7 +104,7 @@ func BenchmarkGlobalLoggerInfo(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerWithColorEnabled 测试启用颜色时的性能
+// BenchmarkLoggerWithColorEnabled tests performance with color enabled
 func BenchmarkLoggerWithColorEnabled(b *testing.B) {
 	logger := setupLogger()
 	logger.SetFlag(FlagColorEnabled)
@@ -114,7 +114,7 @@ func BenchmarkLoggerWithColorEnabled(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerWithColorDisabled 测试禁用颜色时的性能
+// BenchmarkLoggerWithColorDisabled tests performance with color disabled
 func BenchmarkLoggerWithColorDisabled(b *testing.B) {
 	logger := setupLogger()
 	logger.SetFlag(FlagClear)
@@ -124,7 +124,7 @@ func BenchmarkLoggerWithColorDisabled(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerWithStackEnabled 测试启用栈信息时的性能
+// BenchmarkLoggerWithStackEnabled tests performance with stack info enabled
 func BenchmarkLoggerWithStackEnabled(b *testing.B) {
 	logger := setupLogger()
 	logger.SetFlag(FlagStackEnabled)
@@ -134,7 +134,7 @@ func BenchmarkLoggerWithStackEnabled(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerWithStackDisabled 测试禁用栈信息时的性能
+// BenchmarkLoggerWithStackDisabled tests performance with stack info disabled
 func BenchmarkLoggerWithStackDisabled(b *testing.B) {
 	logger := setupLogger()
 	logger.SetFlag(FlagClear)
@@ -144,7 +144,7 @@ func BenchmarkLoggerWithStackDisabled(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerWithAllFlagsEnabled 测试启用所有 flag 时的性能
+// BenchmarkLoggerWithAllFlagsEnabled tests performance with all flags enabled
 func BenchmarkLoggerWithAllFlagsEnabled(b *testing.B) {
 	logger := setupLogger()
 	logger.SetFlag(FlagColorEnabled | FlagStackEnabled)
@@ -154,27 +154,27 @@ func BenchmarkLoggerWithAllFlagsEnabled(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerFiltered 测试日志被过滤时的性能
+// BenchmarkLoggerFiltered tests performance when logs are filtered
 func BenchmarkLoggerFiltered(b *testing.B) {
 	logger := setupLogger()
-	logger.SetLevel(LevelError) // 只输出 Error 级别，Info 会被过滤
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		logger.I(benchTag, benchMessage) // 这条日志会被过滤掉
-	}
-}
-
-// BenchmarkLoggerNotFiltered 测试日志未被过滤时的性能
-func BenchmarkLoggerNotFiltered(b *testing.B) {
-	logger := setupLogger()
-	logger.SetLevel(LevelInfo) // 允许 Info 级别
+	logger.SetLevel(LevelError)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		logger.I(benchTag, benchMessage)
 	}
 }
 
-// BenchmarkLoggerMultipleArgs 测试多参数日志的性能
+// BenchmarkLoggerNotFiltered tests performance when logs are not filtered
+func BenchmarkLoggerNotFiltered(b *testing.B) {
+	logger := setupLogger()
+	logger.SetLevel(LevelInfo)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		logger.I(benchTag, benchMessage)
+	}
+}
+
+// BenchmarkLoggerMultipleArgs tests performance of multi-argument logs
 func BenchmarkLoggerMultipleArgs(b *testing.B) {
 	logger := setupLogger()
 	b.ResetTimer()
@@ -183,7 +183,7 @@ func BenchmarkLoggerMultipleArgs(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerComplexFormatting 测试复杂格式化的性能
+// BenchmarkLoggerComplexFormatting tests performance of complex formatting
 func BenchmarkLoggerComplexFormatting(b *testing.B) {
 	logger := setupLogger()
 	b.ResetTimer()
@@ -192,7 +192,7 @@ func BenchmarkLoggerComplexFormatting(b *testing.B) {
 	}
 }
 
-// BenchmarkLoggerParallel 测试并发日志写入性能
+// BenchmarkLoggerParallel tests concurrent log write performance
 func BenchmarkLoggerParallel(b *testing.B) {
 	logger := setupLogger()
 	b.ResetTimer()
@@ -203,7 +203,7 @@ func BenchmarkLoggerParallel(b *testing.B) {
 	})
 }
 
-// BenchmarkLoggerParallelWithAllFlags 测试启用所有 flag 的并发性能
+// BenchmarkLoggerParallelWithAllFlags tests concurrent performance with all flags enabled
 func BenchmarkLoggerParallelWithAllFlags(b *testing.B) {
 	logger := setupLogger()
 	logger.SetFlag(FlagColorEnabled | FlagStackEnabled)
@@ -215,7 +215,7 @@ func BenchmarkLoggerParallelWithAllFlags(b *testing.B) {
 	})
 }
 
-// BenchmarkDifferentLevels 对比不同日志级别的性能
+// BenchmarkDifferentLevels compares performance of different log levels
 func BenchmarkDifferentLevels(b *testing.B) {
 	tests := []struct {
 		name string
@@ -238,7 +238,7 @@ func BenchmarkDifferentLevels(b *testing.B) {
 	}
 }
 
-// BenchmarkFormattingComparison 对比格式化和非格式化性能
+// BenchmarkFormattingComparison compares formatted and non-formatted performance
 func BenchmarkFormattingComparison(b *testing.B) {
 	b.Run("NonFormatted", func(b *testing.B) {
 		logger := setupLogger()
@@ -265,7 +265,7 @@ func BenchmarkFormattingComparison(b *testing.B) {
 	})
 }
 
-// BenchmarkFlagCombinations 测试不同 flag 组合的性能
+// BenchmarkFlagCombinations tests performance of different flag combinations
 func BenchmarkFlagCombinations(b *testing.B) {
 	tests := []struct {
 		name string
@@ -289,7 +289,7 @@ func BenchmarkFlagCombinations(b *testing.B) {
 	}
 }
 
-// BenchmarkPrinterImpl 测试默认 Printer 的性能
+// BenchmarkPrinterImpl tests default Printer performance
 func BenchmarkPrinterImpl(b *testing.B) {
 	printer := newDiscardPrinter()
 	now := time.Now()
@@ -301,7 +301,7 @@ func BenchmarkPrinterImpl(b *testing.B) {
 	}
 }
 
-// BenchmarkPrinterImplWithColor 测试带颜色的 Printer 性能
+// BenchmarkPrinterImplWithColor tests Printer performance with color
 func BenchmarkPrinterImplWithColor(b *testing.B) {
 	printer := newDiscardPrinter()
 	now := time.Now()
@@ -313,7 +313,7 @@ func BenchmarkPrinterImplWithColor(b *testing.B) {
 	}
 }
 
-// BenchmarkPrinterImplWithStack 测试带栈信息的 Printer 性能
+// BenchmarkPrinterImplWithStack tests Printer performance with stack info
 func BenchmarkPrinterImplWithStack(b *testing.B) {
 	printer := newDiscardPrinter()
 	now := time.Now()
@@ -326,7 +326,7 @@ func BenchmarkPrinterImplWithStack(b *testing.B) {
 	}
 }
 
-// BenchmarkGetStackInfo 测试获取栈信息的性能
+// BenchmarkGetStackInfo tests performance of getting stack info
 func BenchmarkGetStackInfo(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -334,7 +334,7 @@ func BenchmarkGetStackInfo(b *testing.B) {
 	}
 }
 
-// BenchmarkNewLogger 测试创建新 Logger 的性能
+// BenchmarkNewLogger tests performance of creating new Logger
 func BenchmarkNewLogger(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -342,16 +342,16 @@ func BenchmarkNewLogger(b *testing.B) {
 	}
 }
 
-// BenchmarkRealWorldScenario 模拟真实场景的混合日志
+// BenchmarkRealWorldScenario simulates mixed logs in real scenarios
 func BenchmarkRealWorldScenario(b *testing.B) {
 	logger := setupLogger()
 	logger.SetFlag(FlagStackEnabled)
-	logger.SetLevel(LevelInfo | LevelWarn | LevelError) // 过滤掉 Debug
+	logger.SetLevel(LevelInfo | LevelWarn | LevelError)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		logger.I(benchTag, "Server started")
-		logger.D(benchTag, "Debug information") // 会被过滤
+		logger.D(benchTag, "Debug information")
 		logger.W(benchTag, "Warning: high memory usage")
 		logger.If(benchTag, "Request processed in %d ms", i%100)
 		if i%10 == 0 {
